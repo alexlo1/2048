@@ -2,9 +2,10 @@ import { BOARD_WIDTH, BOARD_SIZE } from '../constants/constants';
 
 /**
  * Gets the value at row i, column j
- * @param {Array}  values 
- * @param {Number} i 
- * @param {Number} j 
+ * @param {Array}  values - 1-D board representation
+ * @param {number} i - row
+ * @param {number} j - column
+ * @returns {number} value at row i, column j
  */
 const getValue = (values, i, j) => {
   return values[i * BOARD_WIDTH + j];
@@ -12,9 +13,9 @@ const getValue = (values, i, j) => {
 
 /**
  * Rotates the board so that sliding can happen to the left
- * @param {Array}  values 
- * @param {String} direction 
- * @return {Array} rotated values
+ * @param {Array}  values - 1-D board representation
+ * @param {string} direction - left, right, up, down
+ * @returns {Array} rotated values
  */
 const rotateTiles = (values, direction) => {
   const rotatedValues = [];
@@ -49,9 +50,9 @@ const rotateTiles = (values, direction) => {
 
 /**
  * Undoes the rotation for the specified direction
- * @param {Array}  values 
- * @param {String} direction 
- * @return {Array} unrotated values
+ * @param {Array}  values - 1-D board representation
+ * @param {string} direction - left, right, up, down
+ * @returns {Array} unrotated values
  */
 const undoRotateTiles = (values, direction) => {
   const oppositeDirection = {
@@ -65,8 +66,8 @@ const undoRotateTiles = (values, direction) => {
 
 /**
  * Extracts the specified row from the values array
- * @param {Array}  values 
- * @param {Number} rowNumber 
+ * @param {Array}  values - 1-D board representation
+ * @param {number} rowNumber
  */
 const getRow = (values, rowNumber) => {
   return values.slice(rowNumber * BOARD_WIDTH, (rowNumber + 1) * BOARD_WIDTH);
@@ -75,8 +76,8 @@ const getRow = (values, rowNumber) => {
 /**
  * Slides and merges one row of tiles to the left
  * Adds up any score changes resulting from merging
- * @param {Array} row 
- * @return {Array} [new row, change in score]
+ * @param {Array} row
+ * @returns {Array} [new row, change in score]
  */
 const slideAndMergeRow = (row) => {
   let newRow = [...row];
@@ -105,7 +106,7 @@ const slideAndMergeRow = (row) => {
 
 /**
  * Creates a new board that is empty except for two tiles with value 2
- * @return {Array} the new board
+ * @returns {Array} the new board
  */
 export const initValues = () => {
   const initialValues = Array(BOARD_SIZE).fill(0);
@@ -116,9 +117,9 @@ export const initValues = () => {
 
 /**
  * Determines if tiles can move in the specified direction
- * @param {Array}  values
- * @param {String} direction
- * @return {Boolean} true if tiles can move in the specified direction, false otherwise
+ * @param {Array}  values - 1-D board representation
+ * @param {string} direction - left, right, up, down
+ * @returns {boolean} true if tiles can move in the specified direction, false otherwise
  */
 export const canSlideTiles = (values, direction) => {
   let tempValues = rotateTiles(values, direction);
@@ -140,10 +141,10 @@ export const canSlideTiles = (values, direction) => {
  * Slides and merges tiles in the specified direction
  * Rotates the board such so that sliding goes to the left, 
  * then slides and merges and then undoes the rotation
- * @param {Array}  values
- * @param {Number} score
- * @param {String} direction
- * @return {Array} [updated values, updated score]
+ * @param {Array}  values - 1-D board representation
+ * @param {number} score
+ * @param {string} direction - left, right, up, down
+ * @returns {Array} [updated values, updated score]
  */
 export const slideTiles = (values, score, direction) => {
   let tempValues = rotateTiles(values, direction);
@@ -161,8 +162,8 @@ export const slideTiles = (values, score, direction) => {
 
 /**
  * Generates a new tile in an unoccupied spot with a value of 2 or 4
- * @param {Array} values
- * @return {Array} updated values including new tile
+ * @param {Array} values - 1-D board representation
+ * @returns {Array} updated values including new tile
  */
 export const generateNewTile = (values) => {
   let freeTiles = [];
